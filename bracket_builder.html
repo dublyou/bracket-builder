@@ -1,0 +1,76 @@
+<div id="bracket_setup" class="low-margin-horz">
+    <div class="bracket-options med-margin-vert">
+        <div class="low-margin">
+            <label>Type:&nbsp;</label>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default active">
+                    <input type="radio" name="tourney_type" value="1" autocomplete="off" checked> Single Elimination
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="tourney_type" value="2" autocomplete="off"> Double Elimination
+                </label>
+            </div>
+        </div>
+        <div class="low-margin">
+            <label>Seeding:&nbsp;</label>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default active">
+                    <input type="radio" name="tourney_seeds" value="1" autocomplete="off" checked> Assigned
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="tourney_seeds" value="2" autocomplete="off"> Random
+                </label>
+            </div>
+        </div>
+    </div>
+    <div id="add_competitors" class="input-group margin-auto-horz low-margin-vert">
+        <input id="competitor_name" class="form-control" placeholder="Enter a new competitor...">
+        <div class="input-group-btn">
+            <button id="add_competitor" type="button" class="btn btn-default">Add</button>
+        </div>
+    </div>
+    <i class="center-block text-center">Enter a name above to add a competitor to your bracket. Drag and drop to assign seeds.</i>
+    <ul id="competitors" class="list-group sortable"></ul>
+    <button id="build_bracket" class="btn btn-primary center-block med-margin-vert">Build Bracket</button>
+</div>
+<div id="bracket_view" class="low-margin-horz hidden">
+    <div id="view_controls" class="med-margin-vert flex-wrap">
+        <div id="view_options" class="margin-auto-horz med-margin-vert">
+            <label>Show:&nbsp;</label>
+            <div class="btn-group" data-toggle="buttons">
+                <label for="winners_check" class="btn btn-default active">
+                    <input type="checkbox" name="view_options" id="winners_check" value="bracket" checked> Winners
+                </label>
+                <label for="losers_check" class="btn btn-default active">
+                    <input type="checkbox" name="view_options" id="losers_check" value="losers-bracket" checked> Losers
+                </label>
+            </div>
+        </div>
+        <div id="round_slider" class="margin-auto-horz med-margin-vert">
+            <div id="slider-range">
+                <div id="low_round" class="btn-group btn-group-xs ui-slider-handle ui-state-default ui-corner-all" style="" role="group">
+                    <div class="btn-group-wrap">
+                        <div class="btn-group btn-group-xs">
+                            <button class="btn btn-default" data-bound="0" data-increment="-1"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                            <button class="btn btn-default" data-bound="0" data-increment="1"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                        </div>
+                    </div>
+                </div>
+                <div id="high_round" class="ui-slider-handle ui-state-default ui-corner-all" style="" role="group">
+                    <div class="btn-group-wrap">
+                        <div class="btn-group btn-group-xs">
+                            <button class="btn btn-default" data-bound="1" data-increment="-1"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                            <button class="btn btn-default" data-bound="1" data-increment="1"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="range-labels">
+                    <span class="text-xs" style="position:absolute;left:-5px;top:15px">Round 1</span>
+                    <span class="text-xs" style="position:absolute;right:-5px;top:15px">Champion</span>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary margin-auto-horz med-margin-vert" onclick="$('#bracket_view').hide();$('#bracket_setup').show();">Edit Bracket</button>
+    </div>
+    <div class="bracket-wrap"></div>
+</div>

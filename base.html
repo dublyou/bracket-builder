@@ -1,0 +1,105 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        {% block meta_tags %}{% endblock %}
+        <title>{% block head_title %}{{ title|default:"matchup-games" }}{% endblock %}</title>
+
+        <link rel='icon' href=''>
+        <link rel="shortcut icon" href="{% static 'svg/mg_icon.png' %}">
+
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap-combobox.css' %}">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        {% block styles %}
+        {% for sheet in styles %}
+        {% if sheet.name %}
+        <link rel="stylesheet" href="{% static sheet.name %}">
+        {% else %}
+        <link rel="stylesheet" href="{{ sheet.link }}">
+        {% endif %}
+        {% endfor %}
+        {% endblock %}
+
+        <script src="{% static 'js/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
+    </head>
+    <body>
+        <div id="popup" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    {% block popup %}{{ popup }}{% endblock %}
+                </div>
+            </div>
+        </div>
+        <div class="body-content container-fluid">
+        {% block navbar %}
+            {% include "base/base_navbar.html" with args=navbar authenticated=user.is_authenticated %}
+        {% endblock %}
+        {% block toolbar %}{% endblock %}
+        {% block content %}
+            <div class="container">
+                {% if template %}
+                {% include template %}
+                {% elif contents %}
+                {% for content in contents %}
+                    {% include content.template %}
+                {% endfor %}
+                {% endif %}
+            </div>
+        {% endblock %}
+        </div>
+        {% block footer %}
+        <footer class="footer container-fluid">
+            <div class="container">
+                <ul class="link-list">
+                    <li><a href="/">matchup-games.com</a></li>
+                    <li><a href="/contact/">Contact Us</a></li>
+                </ul>
+            </div>
+        </footer>
+        {% endblock %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="static/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+
+        <script src="{% static 'js/main.js' %}"></script>
+        <script src="{% static 'js/triggerAction.js' %}"></script>
+        <script src="{% static 'js/ajax_requests.js' %}"></script>
+        <script src="{% static 'js/bootstrap-combobox.js' %}"></script>
+        {% if popup %}
+        <script type="text/javascript">
+            $(window).load(function(){
+                $('#popup').modal('show');
+            });
+        </script>
+        {% endif %}
+        {% block scripts %}
+        {% for script in scripts %}
+        {% if script.name %}
+        <script src="{% static script.name %}"></script>
+        {% else %}
+        <script src="{{ script.link }}"></script>
+        {% endif %}
+        {% endfor %}
+        {% endblock %}
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+        </script>
+    </body>
+</html>
